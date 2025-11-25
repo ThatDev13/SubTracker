@@ -23,10 +23,13 @@ export default function LoginPage() {
       const formData = new FormData(e.currentTarget)
       const result = await login(formData)
       if (result?.error) {
+        console.error("[v0] Login error:", result.error)
         setError(result.error)
       }
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred")
+      const errorMsg = error instanceof Error ? error.message : "An error occurred"
+      console.error("[v0] Login exception:", errorMsg)
+      setError(errorMsg)
     } finally {
       setIsLoading(false)
     }
