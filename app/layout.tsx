@@ -39,6 +39,17 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                  console.log('[v0] SW registration failed:', err);
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body className={`font-sans antialiased`}>
         <div className="pb-16 md:pb-0">{children}</div>

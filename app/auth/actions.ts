@@ -16,6 +16,10 @@ export async function login(formData: FormData) {
       password: formData.get("password") as string,
     }
 
+    if (!data.email || !data.password) {
+      return { error: "Email and password are required" }
+    }
+
     console.log("[v0] Attempting to sign in with email:", data.email)
     const { error } = await supabase.auth.signInWithPassword(data)
 
